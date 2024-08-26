@@ -6,13 +6,14 @@
 /*   By: nicomart <nicomart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:39:04 by nicomart          #+#    #+#             */
-/*   Updated: 2024/08/25 21:25:44 by nicomart         ###   ########.fr       */
+/*   Updated: 2024/08/25 21:55:00 by nicomart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "rush01.h"
+#include "utils.h"
 
 void	handle_error(int **table, int *clues)
 {
@@ -29,7 +30,7 @@ void	handle_error(int **table, int *clues)
 	write(1, "Error\n", 6);
 }
 
-int	*get_expected_input(void)
+int	get_expected_input(int i)
 {
 	static int	input[16];
 
@@ -49,7 +50,9 @@ int	*get_expected_input(void)
 	input[13] = 2;
 	input[14] = 2;
 	input[15] = 2;
-	return (input);
+	if (i >= 0 && i < 16)
+		return (input[i]);
+	return (-1);
 }
 
 int	check_clues_against_input(int *clues)
@@ -59,7 +62,7 @@ int	check_clues_against_input(int *clues)
 	i = 0;
 	while (i < 16)
 	{
-		if (clues[i] != get_expected_input())
+		if (clues[i] != get_expected_input(i))
 			return (0);
 		i++;
 	}

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cassem <cassem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 18:12:27 by nicomart          #+#    #+#             */
-/*   Updated: 2024/08/25 20:56:51 by cassem           ###   ########.fr       */
+/*   Created: 2024/08/25 20:24:37 by cassem            #+#    #+#             */
+/*   Updated: 2024/08/25 20:56:13 by cassem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RUSH01_H
-# define RUSH01_H
+#ifndef UTILS_H
+# define UTILS_H
 
-int	*check_clues(char **argv);
-int	solve(int **grid, int row, int col);
-int	is_valid(int **table, int row, int col, int num);
+void	ft_putchar(char c);
+void	print_table(int **table);
+int		**init_table(void);
 
 #endif
