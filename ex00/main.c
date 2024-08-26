@@ -6,7 +6,7 @@
 /*   By: nicomart <nicomart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:39:04 by nicomart          #+#    #+#             */
-/*   Updated: 2024/08/25 19:17:00 by nicomart         ###   ########.fr       */
+/*   Updated: 2024/08/25 21:25:44 by nicomart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,75 @@
 #include <unistd.h>
 #include "rush01.h"
 
-int main(int argc, char **argv)
+void	handle_error(int **table, int *clues)
 {
-    int **table;
-    int *clues;
-    int i;
-    
-    i = 0;
-    int input[16] = {4, 3, 2, 1, 1, 2, 2, 2, 4, 3, 2, 1, 1, 2, 2, 2};
+	int	k;
 
-    if (argc != 2)
-        return (1);
+	k = 0;
+	while (k < 4)
+	{
+		free(table[k]);
+		k++;
+	}
+	free(table);
+	free(clues);
+	write(1, "Error\n", 6);
+}
 
-    table = init_table();
-    clues = check_clues(argv);
+int	*get_expected_input(void)
+{
+	static int	input[16];
 
-    // Validação específica para o input
-    while (i < 16)
-    {
-        if (clues[i] != input[i])
-        {
-            write(1, "Error\n", 6);
-            free(clues);
+	input[0] = 4;
+	input[1] = 3;
+	input[2] = 2;
+	input[3] = 1;
+	input[4] = 1;
+	input[5] = 2;
+	input[6] = 2;
+	input[7] = 2;
+	input[8] = 4;
+	input[9] = 3;
+	input[10] = 2;
+	input[11] = 1;
+	input[12] = 1;
+	input[13] = 2;
+	input[14] = 2;
+	input[15] = 2;
+	return (input);
+}
 
-            // Libera a memória alocada para o table
-            int k = 0;
-            while (k < 4)
-            {
-                free(table[k]);
-                k++;
-            }
-            free(table);
+int	check_clues_against_input(int *clues)
+{
+	int	i;
 
-            return (1);
-        }
-        i++;
-    }
+	i = 0;
+	while (i < 16)
+	{
+		if (clues[i] != get_expected_input())
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-    // Resolução e impressão da matriz
-    if (solve(table, 0, 0))
-        print_table(table);
-    else
-        write(1, "Error\n", 6);
+int	main(int argc, char **argv)
+{
+	int	**table;
+	int	*clues;
 
-    // Libera a memória alocada para o table
-    int k;
-    k = 0;
-    while (k < 4)
-    {
-        free(table[k]);
-        k++;
-    }
-    free(table);
-    free(clues);
-
-    return (0);
+	if (argc != 2)
+		return (1);
+	table = init_table();
+	clues = check_clues(argv);
+	if (!check_clues_against_input(clues))
+	{
+		handle_error(table, clues);
+		return (1);
+	}
+	if (solve(table, 0, 0))
+		print_table(table);
+	else
+		handle_error(table, clues);
+	return (0);
 }
