@@ -6,13 +6,14 @@
 /*   By: nicomart <nicomart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:39:04 by nicomart          #+#    #+#             */
-/*   Updated: 2024/08/25 19:17:00 by nicomart         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:50:52 by cassem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "rush01.h"
+#include "utils.h"
 
 int main(int argc, char **argv)
 {
